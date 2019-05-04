@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
-import './App.css';
 import axios from 'axios';
-import BookDiv from "./components/bookDiv";
-import Header from "./components/header";
+import BookDiv from "../bookDiv";
+import Header from "../header";
 
 let apiKey = "AIzaSyAwSXsSa6GrLDO2VRl37azzYfXI8Ck59Ls";
 
 
 
-class App extends Component {
+class SearchPage extends Component {
 
   // AIzaSyAwSXsSa6GrLDO2VRl37azzYfXI8Ck59Ls
   // Use this key in your application by passing it with the key=API_KEY parameter.
@@ -26,18 +25,19 @@ class App extends Component {
   searchBooks = (searchTitle) => {
     console.log("search term:");
     console.log(searchTitle);
+    // TODO: put latest search term in local storage
     let newGoogleResultsState = [];
     axios.get("https://www.googleapis.com/books/v1/volumes?q=" + searchTitle + "&key=" + apiKey)
       .then(response => {
-        // console.log(response.data);
+        console.log(response.data);
         response.data.items.forEach( (element) => {
           let newObject = {
-            title: element.volumeInfo.title,
-            snippet: element.searchInfo.textSnippet,
-            author: element.volumeInfo.authors[0],
-            image: element.volumeInfo.imageLinks.thumbnail,
-            link: element.volumeInfo.infoLink,
-            synopsis: element.volumeInfo.description
+            title: (element.volumeInfo.title || "No Title Provided"),
+            snippet: ((element.searchInfo && element.searchInfo.textSnippet) || "No Snippet Provided"),
+            author: ((element.volumeInfo.authors && element.volumeInfo.authors[0]) || "No Author Provided"),
+            image: ((element.volumeInfo.imageLinks && element.volumeInfo.imageLinks.thumbnail) || "https://www.stma.org/wp-content/uploads/2017/10/no-image-icon.png"),
+            link: (element.volumeInfo.infoLink || ("https://www.google.com/search?tbm=bks&q=" + element.searchInfo.title) ),
+            synopsis: (element.volumeInfo.description || "No Synopsis Provided")
           };
           newGoogleResultsState.push(newObject);
           // console.log("\n\n");
@@ -55,8 +55,12 @@ class App extends Component {
   };
 
   getSearchTerm = event => {
+    console.log("getSearchTerm() triggered");
     const term = event.target.value;
-    this.setState({searchTerm: term});
+    this.setState({searchTerm: term},function(){
+      console.log("this.state.searchTerm:");
+      console.log(this.state.searchTerm);
+    });
   }
 
   // handleInputChange = event => {
@@ -69,7 +73,7 @@ class App extends Component {
 
   componentDidMount() {
     // this.searchBooks("the moon is a harsh mistress");
-    this.setState({searchTerm: "cheese"})
+    // this.setState({searchTerm: "transformers"});
   };
 
   render() {
@@ -123,4 +127,4 @@ class App extends Component {
 
 }
 
-export default App;
+export default SearchPage;

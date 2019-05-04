@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 function Header (props) {
 
@@ -7,17 +8,17 @@ function Header (props) {
         <div>
 
         <nav className="navbar navbar-expand-md bg-primary">
-            <a href="#" className="navbar-brand text-white">RGBS</a>
+            <Link to="/" className="navbar-brand text-white">RGBS</Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
                 <li className="nav-item">
-                    <a className="nav-link text-white" href="#">Search Books</a>
+                    <Link to="/" className="nav-link text-white">Search Books</Link>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link text-white" href="#">Saved Books</a>
+                    <Link to="saved" className="nav-link text-white">Saved Books</Link>
                 </li>
             </ul>
             </div>
