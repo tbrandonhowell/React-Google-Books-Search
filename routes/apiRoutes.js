@@ -1,16 +1,11 @@
 const router = require("express").Router();
-const mongoose = require("mongoose");
+const controller = require("../../controllers/savedBooksController");
 
-router.get("/books", (req,res) => {
-    // Should return all saved books as JSON.
-})
+router.route("/books")
+    .get(controller.findAll)
+    .post(controller.create);
 
-router.post("/books", (req,res) => {
-    // Will be used to save a new book to the database.
-})
-
-router.post("/books/:id", (req,res) => {
-    // Will be used to delete a book from the database by Mongo `_id`.
-})
+router.route("/books/:id")
+    .delete(controller.remove)
 
 module.exports = router;

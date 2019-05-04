@@ -10,6 +10,6 @@ const savedBooksSchema = new Schema ({
     synopsis: String,
 });
 
-const SavedBooks = mongoose.model("savedBooks",savedBooksSchema);
+const SavedBooks = mongoose.model("SavedBooks",savedBooksSchema);
 
 module.exports = SavedBooks;
