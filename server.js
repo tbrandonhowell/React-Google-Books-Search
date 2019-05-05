@@ -7,6 +7,7 @@
 // TODO: give some sort of indication when a book is saved 
 // TODO: get rid of the uncaught type error that seems to be triggered by bootstrap
 // TODO: store last search in local storage and use to run a default search when someone goes to the search page
+// TODO: clear out some of the extra/unused NPM references
 // TODO: deploy to heroku  
 
 

@@ -4,8 +4,7 @@ import BookDiv from "../bookDiv";
 import Header from "../header";
 import * as Scroll from 'react-scroll';
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-
-let apiKey = "AIzaSyAwSXsSa6GrLDO2VRl37azzYfXI8Ck59Ls";
+import apiKey from "../../key.js"
 
 class SearchPage extends Component {
 
