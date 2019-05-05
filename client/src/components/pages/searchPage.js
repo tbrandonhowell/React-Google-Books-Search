@@ -2,27 +2,26 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import BookDiv from "../bookDiv";
 import Header from "../header";
+import * as Scroll from 'react-scroll';
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 let apiKey = "AIzaSyAwSXsSa6GrLDO2VRl37azzYfXI8Ck59Ls";
 
-
-
 class SearchPage extends Component {
-
-  // AIzaSyAwSXsSa6GrLDO2VRl37azzYfXI8Ck59Ls
-  // Use this key in your application by passing it with the key=API_KEY parameter.
-  // https://www.googleapis.com/books/v1/volumes?q=search+terms
-  // https://www.googleapis.com/books/v1/volumes?q=the moon is a harsh mistress&key=AIzaSyAwSXsSa6GrLDO2VRl37azzYfXI8Ck59Ls
-  // looks like you get ten results
-
-  
 
   state = {
     searchTerm: "",
     googleResults: [],
   }
 
-  searchBooks = (searchTitle) => {
+  // from: https://stackoverflow.com/questions/43441856/reactjs-how-to-scroll-to-an-element
+  constructor(props){
+    super(props)
+    this.myRef = React.createRef()
+  }
+
+  searchBooks = (searchTitle, event) => {
+    event.preventDefault();
     console.log("search term:");
     console.log(searchTitle);
     let newGoogleResultsState = [];
@@ -46,6 +45,7 @@ class SearchPage extends Component {
         // console.log(newGoogleResultsState);
         this.setState({googleResults: newGoogleResultsState},response => {
           console.log(this.state.googleResults);
+          // this.scrollToRef();
         })
       })
       .catch(err => {
@@ -73,22 +73,17 @@ class SearchPage extends Component {
       })
   }
 
-
-  DELETETHIS = () => {
-    console.log("pullBooks() called");
-    axios.get("http://localhost:3001/api/books")
-      .then(response => {
-        console.log("response.data:");
-        console.log(response.data);
-        this.setState({savedBooksPull: response.data},response => {
-          console.log("this.state.savedBooksPull:")
-          console.log(this.state.savedBooksPull);
-        })
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  };
+  scrollToRef = () => {
+    // window.scrollTo(0, this.myRef.current.offsetTop);
+    // scroll.scrollTo(this.myRef.current);
+    scroller.scrollTo('myScrollToElement', {
+      duration: 1500,
+      delay: 100,
+      smooth: true,
+      containerId: 'ContainerElementID',
+      offset: 50, // Scrolls to element + 50 pixels down the page
+    })
+  }
 
   componentDidMount() {
     // this.searchBooks("the moon is a harsh mistress");
@@ -104,16 +99,18 @@ class SearchPage extends Component {
                 <div className="col-md-1"></div>
                 <div className="col-md-10 border p-4">
                     <h2>Book Search</h2>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      onChange={this.getSearchTerm}
-                    />
-                    <button 
-                      type="button" 
-                      className="btn btn-success mt-3 float-right"
-                      onClick={() => this.searchBooks(this.state.searchTerm)}
-                    >Search</button>
+                    <form onSubmit={(event) => this.searchBooks(this.state.searchTerm,event)}>
+                      <input 
+                        type="text" 
+                        className="form-control" 
+                        onChange={this.getSearchTerm}
+                      />
+                      <button 
+                        type="submit" 
+                        className="btn btn-success mt-3 float-right"
+                        // onClick={() => this.searchBooks(this.state.searchTerm)}
+                      >Search</button>
+                    </form>
                 </div>
                 <div className="col-md-1"></div>
             </div>
@@ -121,7 +118,8 @@ class SearchPage extends Component {
             <div className="row mt-4">
                 <div className="col-md-1"></div>
                 <div className="col-md-10 border p-4">
-                    <h2>Results</h2>
+                    <Element name="myScrollToElement"></Element>
+                    <h2 ref={this.myRef}>Results</h2>
 
                     {
                       this.state.googleResults.map((item, index) => (

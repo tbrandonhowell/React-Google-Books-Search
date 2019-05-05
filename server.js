@@ -1,14 +1,13 @@
-// TODO: all the to-dos:
-// TODO: remove any commented code
+// TODO: all the to-dos: 
 // TODO: do I need to obfuscate my API key?
-// TODO: get rid of arrayId in layout
-// TODO: make search form work by pressing enter
+// TODO: scroll search page to results after results are returned
+// TODO: have some sort of spinner show up after submitting search
 // TODO: comment out console.logs
 // TODO: make view links open in new window
 // TODO: give some sort of indication when a book is saved 
 // TODO: get rid of the uncaught type error that seems to be triggered by bootstrap
 // TODO: store last search in local storage and use to run a default search when someone goes to the search page
-// TODO: deploy to heroku 
+// TODO: deploy to heroku  
 
 
 // =================================
@@ -34,14 +33,6 @@ const db = require("./models");
 let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/books"
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 // =================================
-
-
-// * `/api/books` (get) - Should return all saved books as JSON.
-
-// * `/api/books` (post) - Will be used to save a new book to the database.
-
-// * `/api/books/:id` (delete) - Will be used to delete a book from the database by Mongo `_id`.
-
 
 // =================================
 // GET "/api/books" ROUTE
@@ -87,16 +78,6 @@ app.post("/api/books/delete", (req,res) => {
         })
 });
 // =================================
-
-// app.get("*", (req, res) => {
-//     res.sendFile(path.join(__dirname, "./client/build/index.html"));
-//   });
-
-
-//   app.all('/*', function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     next();
-// });
 
 
 // =================================
