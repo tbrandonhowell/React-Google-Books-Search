@@ -1,3 +1,16 @@
+// TODO: all the to-dos:
+// TODO: remove any commented code
+// TODO: do I need to obfuscate my API key?
+// TODO: get rid of arrayId in layout
+// TODO: make search form work by pressing enter
+// TODO: comment out console.logs
+// TODO: make view links open in new window
+// TODO: give some sort of indication when a book is saved 
+// TODO: get rid of the uncaught type error that seems to be triggered by bootstrap
+// TODO: store last search in local storage and use to run a default search when someone goes to the search page
+// TODO: deploy to heroku 
+
+
 // =================================
 // REQUIRE
 const express = require("express");

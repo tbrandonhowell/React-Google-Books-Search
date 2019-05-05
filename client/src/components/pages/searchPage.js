@@ -25,7 +25,6 @@ class SearchPage extends Component {
   searchBooks = (searchTitle) => {
     console.log("search term:");
     console.log(searchTitle);
-    // TODO: put latest search term in local storage for use on page load
     let newGoogleResultsState = [];
     axios.get("https://www.googleapis.com/books/v1/volumes?q=" + searchTitle + "&key=" + apiKey)
       .then(response => {
@@ -64,7 +63,6 @@ class SearchPage extends Component {
   }
 
   addBook = (index) => {
-    // TODO: give some sort of indication when a book is saved
     console.log("addBook() for arrayIndex[" + index + "] called");
     let book = this.state.googleResults[index];
     console.log(book);

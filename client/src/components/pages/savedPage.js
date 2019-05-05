@@ -9,7 +9,6 @@ class SavedPage extends Component {
 
   state = {
     savedBooksPull: []
-    // TODO: need to define state
   }
 
   pullBooks2 = () => {
@@ -29,7 +28,6 @@ class SavedPage extends Component {
   };
 
   deleteBook = (toDelete) => {
-    // TODO: give some sort of indication when a book is saved
     console.log("deleteBook() for _id: " + toDelete + " called");
     let id = toDelete;
     console.log({id});
@@ -42,7 +40,6 @@ class SavedPage extends Component {
   }
 
   componentDidMount() {
-    // TODO: add the api call to our database
     this.pullBooks2();
   };
 
