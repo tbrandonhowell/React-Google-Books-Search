@@ -64,8 +64,10 @@ class SearchPage extends Component {
   }
 
   addBook = (index) => {
+    // TODO: give some sort of indication when a book is saved
     console.log("addBook() for arrayIndex[" + index + "] called");
     let book = this.state.googleResults[index];
+    console.log(book);
     axios.post("http://localhost:3001/api/books", {book})
       .then(response => {
         console.log("response.data:");

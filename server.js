@@ -2,6 +2,7 @@
 // REQUIRE
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require('cors');
 // =================================
 
 // =================================
@@ -11,6 +12,7 @@ const app = express(); // initialize express
 app.use(express.static('public')); // establish public folder
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 // =================================
 
 // =================================
@@ -45,7 +47,9 @@ app.get("/api/books", (req,res) => {
 // POST "/api/books" ROUTE
 app.post("/api/books", (req,res) => {
     console.log("\n\n/api/books POST Route requested.");
-    db.SavedBooks.create(req.body)
+    console.log("req.body.book:");
+    console.log(req.body.book);
+    db.SavedBooks.create(req.body.book)
         .then(inserted => {
             console.log("Response received from DB");
             console.log(inserted);

@@ -9,7 +9,7 @@ function BookDiv (props) {
         <div className="container mt-3">
         <div className="row">
             <div className="col-md-12 border p-3">
-            <h1>arrayId: {props.arrayId}</h1>
+            <h1>arrayId: {props.arrayIndex}</h1>
                 {props.search ? 
                     (<SearchBtns 
                         link={props.link} 
