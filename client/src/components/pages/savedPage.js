@@ -12,38 +12,6 @@ class SavedPage extends Component {
     // TODO: need to define state
   }
 
-  // pullBooks = () => {
-  //   console.log("pullBooks() called");
-  //   let newSavedBooksPull = [];
-  //   axios.get("http://localhost:3001/api/books")
-  //     .then(response => {
-  //       console.log("response.data:");
-  //       console.log(response.data);
-  //       response.data.forEach( (element) => {
-  //         let newObject = {
-  //           title: (element.title || "No Title Provided"),
-  //           snippet: (element.snippet || "No Snippet Provided"),
-  //           author: (element.author || "No Author Provided"),
-  //           image: (element.image || "https://www.stma.org/wp-content/uploads/2017/10/no-image-icon.png"),
-  //           link: (element.link || ("https://www.google.com/search?tbm=bks&q=" + element.title) ),
-  //           synopsis: (element.synopsis || "No Synopsis Provided")
-  //         };
-  //         newSavedBooksPull.push(newObject);
-  //         // console.log("\n\n");
-  //         // console.log(newObject);
-  //         // console.log("\n\n");
-  //       });
-  //       // console.log(newGoogleResultsState);
-  //       this.setState({savedBooksPull: newSavedBooksPull},response => {
-  //         console.log("this.state.savedBooksPull:")
-  //         console.log(this.state.savedBooksPull);
-  //       })
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     })
-  // };
-
   pullBooks2 = () => {
     console.log("pullBooks() called");
     axios.get("http://localhost:3001/api/books")
@@ -59,6 +27,19 @@ class SavedPage extends Component {
         console.log(err);
       })
   };
+
+  deleteBook = (toDelete) => {
+    // TODO: give some sort of indication when a book is saved
+    console.log("deleteBook() for _id: " + toDelete + " called");
+    let id = toDelete;
+    console.log({id});
+    axios.post("http://localhost:3001/api/books/delete", {id})
+      .then(response => {
+        console.log("response.data:");
+        console.log(response.data);
+        this.pullBooks2();
+      })
+  }
 
   componentDidMount() {
     // TODO: add the api call to our database
@@ -86,7 +67,8 @@ class SavedPage extends Component {
                           author={item.author}
                           image={item.image}
                           synopsis={item.synopsis}
-                          arrayId={item.index}
+                          Id={item._id}
+                          deleteBook={this.deleteBook}
                         />
                       ))
                     }

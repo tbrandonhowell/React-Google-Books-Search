@@ -53,7 +53,7 @@ app.post("/api/books", (req,res) => {
         .then(inserted => {
             console.log("Response received from DB");
             console.log(inserted);
-            res.header("Access-Control-Allow-Origin", "*"); // this gets rid of the CORS issue
+            res.header("Access-Control-Allow-Origin", "*"); // this gets rid of the CORS issue, maybe
             res.json(inserted);
         })
 });
@@ -63,11 +63,13 @@ app.post("/api/books", (req,res) => {
 // POST "/api/books/delete" ROUTE - delete a book
 app.post("/api/books/delete", (req,res) => {
     console.log("\n\n/api/books/delete POST route requested");
+    console.log("req.body:");
+    console.log(req.body);
     db.SavedBooks.deleteOne({_id: req.body.id})
         .then(deleted => {
             console.log("Response received from DB");
             console.log(deleted);
-            res.header("Access-Control-Allow-Origin", "*"); // this gets rid of the CORS issue
+            res.header("Access-Control-Allow-Origin", "*"); // this gets rid of the CORS issue, maybe
             res.json(deleted);
         })
 });

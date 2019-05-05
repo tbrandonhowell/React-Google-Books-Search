@@ -19,7 +19,8 @@ function BookDiv (props) {
                      : 
                     (<SavedBtns 
                         link={props.link}  
-                        arrayId={props.arrayIndex}
+                        Id={props.Id}
+                        deleteBook={props.deleteBook}
                     />) }
                 {/* <SearchBtns 
                     link={props.link}
