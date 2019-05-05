@@ -1,4 +1,6 @@
 import React from "react";
+import SearchBtns from "../components/searchBtns";
+import SavedBtns from "../components/savedBtns";
 
 function BookDiv (props) {
 
@@ -7,8 +9,23 @@ function BookDiv (props) {
         <div className="container mt-3">
         <div className="row">
             <div className="col-md-12 border p-3">
-                <a className="btn btn-primary float-right ml-2" href={props.link} role="button">View</a>
-                <button className="btn btn-primary float-right ml-2">Save</button>
+            <h1>arrayId: {props.arrayId}</h1>
+                {props.search ? 
+                    (<SearchBtns 
+                        link={props.link} 
+                        arrayIndex={props.arrayIndex}
+                        addBook = {props.addBook}
+                    />)
+                     : 
+                    (<SavedBtns 
+                        link={props.link}  
+                        arrayId={props.arrayIndex}
+                    />) }
+                {/* <SearchBtns 
+                    link={props.link}
+                /> */}
+                {/* <a className="btn btn-primary float-right ml-2" href={props.link} role="button">View</a>
+                <button className="btn btn-primary float-right ml-2 saveBtn">Save</button> */}
                 <h3>{props.title}</h3>
                 <h5>{props.snippet}</h5>
                 <p>Written by {props.author}</p>

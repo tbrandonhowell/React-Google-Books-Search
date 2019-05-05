@@ -25,7 +25,7 @@ class SearchPage extends Component {
   searchBooks = (searchTitle) => {
     console.log("search term:");
     console.log(searchTitle);
-    // TODO: put latest search term in local storage
+    // TODO: put latest search term in local storage for use on page load
     let newGoogleResultsState = [];
     axios.get("https://www.googleapis.com/books/v1/volumes?q=" + searchTitle + "&key=" + apiKey)
       .then(response => {
@@ -63,13 +63,32 @@ class SearchPage extends Component {
     });
   }
 
-  // handleInputChange = event => {
-  //   const name = event.target.name;
-  //   const value = event.target.value;
-  //   this.setState({
-  //     [name]: value
-  //   });
-  // };
+  addBook = (index) => {
+    console.log("addBook() for arrayIndex[" + index + "] called");
+    let book = this.state.googleResults[index];
+    axios.post("http://localhost:3001/api/books", {book})
+      .then(response => {
+        console.log("response.data:");
+        console.log(response.data);
+      })
+  }
+
+
+  DELETETHIS = () => {
+    console.log("pullBooks() called");
+    axios.get("http://localhost:3001/api/books")
+      .then(response => {
+        console.log("response.data:");
+        console.log(response.data);
+        this.setState({savedBooksPull: response.data},response => {
+          console.log("this.state.savedBooksPull:")
+          console.log(this.state.savedBooksPull);
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  };
 
   componentDidMount() {
     // this.searchBooks("the moon is a harsh mistress");
@@ -105,14 +124,18 @@ class SearchPage extends Component {
                     <h2>Results</h2>
 
                     {
-                      this.state.googleResults.map(item => (
+                      this.state.googleResults.map((item, index) => (
                         <BookDiv
+                          key={index}
                           title={item.title}
                           link={item.link}
                           snippet={item.snippet}
                           author={item.author}
                           image={item.image}
                           synopsis={item.synopsis}
+                          search="true"
+                          arrayIndex = {index}
+                          addBook = {this.addBook}
                         />
                       ))
                     }

@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 
 // =================================
 // SERVER
-const PORT = process.argv[2] || process.env.PORT || 3011;
+const PORT = process.argv[2] || process.env.PORT || 3001;
 const app = express(); // initialize express
 app.use(express.static('public')); // establish public folder
 app.use(express.urlencoded({ extended: false }));
@@ -35,6 +35,7 @@ app.get("/api/books", (req,res) => {
     db.SavedBooks.find({}) // find all saved books
         .then(response => {
             console.log("Response received from DB");
+            res.header("Access-Control-Allow-Origin", "*"); // this gets rid of the CORS issue
             res.json(response);
         })
 });
@@ -48,12 +49,12 @@ app.post("/api/books", (req,res) => {
         .then(inserted => {
             console.log("Response received from DB");
             console.log(inserted);
+            res.header("Access-Control-Allow-Origin", "*"); // this gets rid of the CORS issue
             res.json(inserted);
         })
 });
 // =================================
 
-// TODO: finish this route
 // =================================
 // POST "/api/books/delete" ROUTE - delete a book
 app.post("/api/books/delete", (req,res) => {
@@ -62,26 +63,21 @@ app.post("/api/books/delete", (req,res) => {
         .then(deleted => {
             console.log("Response received from DB");
             console.log(deleted);
+            res.header("Access-Control-Allow-Origin", "*"); // this gets rid of the CORS issue
             res.json(deleted);
         })
 });
 // =================================
 
+// app.get("*", (req, res) => {
+//     res.sendFile(path.join(__dirname, "./client/build/index.html"));
+//   });
 
-// =================================
-// POST "/api/post-review" ROOT ROUTE - add a review
-app.post("/api/drop-review", (req,res) => {
-    console.log("\n\n/api/drop-review POST received");
-    db.Reviews.update( {}, { $pull: { comments: req.body.id} })
-        .then(response => {
-            console.log(response);
-            return res.status(200).end(); // return a 200 server status if everything went okay.
-        })
-        .catch(err => {
-            res.json(err);
-        })
-});
-// =================================
+
+//   app.all('/*', function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     next();
+// });
 
 
 // =================================
