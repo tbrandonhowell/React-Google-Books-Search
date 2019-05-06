@@ -22,10 +22,20 @@ const cors = require('cors');
 // SERVER
 const PORT = process.argv[2] || process.env.PORT || 3001;
 const app = express(); // initialize express
-app.use(express.static('public')); // establish public folder
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
+
+// app.use(express.static('public')); // establish public folder << replacing this per alper
+
+// If its production environment!
+if (process.env.NODE_ENV === 'production') {
+    const path = require('path');
+    app.use('/static', express.static(path.join(__dirname, 'client/build/static')));
+    app.get('/', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client/build/'))
+    });
+}
 // =================================
 
 // =================================
