@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(cors());
 
 // app.use(express.static('public')); // establish public folder << replacing this per alper
-
+// with this:
 // If its production environment!
 if (process.env.NODE_ENV === 'production') {
     const path = require('path');
