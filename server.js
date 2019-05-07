@@ -16,6 +16,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require('cors');
+const path = require('path');
 // =================================
 
 // =================================
@@ -26,16 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
-// app.use(express.static('public')); // establish public folder << replacing this per alper
-// with this:
-// If its production environment!
-if (process.env.NODE_ENV === 'production') {
-    const path = require('path');
-    app.use('/static', express.static(path.join(__dirname, 'client/build/static')));
-    app.get('/', (req, res) => {
-        res.sendFile(path.join(__dirname, 'client/build/'))
-    });
-}
+
 // =================================
 
 // =================================
@@ -90,7 +82,15 @@ app.post("/api/books/delete", (req,res) => {
 });
 // =================================
 
-
+// app.use(express.static('public')); // establish public folder << replacing this per alper
+// with this:
+// If its production environment!
+if (process.env.NODE_ENV === 'production') {
+    app.use('/static', express.static(path.join(__dirname, 'client/build/static')));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client/build/index.html'))
+    });
+}
 // =================================
 // LISTENER
 app.listen(PORT, () => {
