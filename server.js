@@ -88,7 +88,7 @@ app.post("/api/books/delete", (req,res) => {
 if (process.env.NODE_ENV === 'production') {
     app.use('/static', express.static(path.join(__dirname, 'client/build/static')));
     app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'client/build/index.html'))
+        res.sendFile(path.resolve(__dirname, 'client', 'build', '/index.html'))
     });
 }
 // =================================
