@@ -13,7 +13,7 @@ class SavedPage extends Component {
 
   pullBooks2 = () => {
     console.log("pullBooks() called");
-    axios.get("http://localhost:3001/api/books")
+    axios.get("/api/books") // fix all these like this one.
       .then(response => {
         console.log("response.data:");
         console.log(response.data);
@@ -31,7 +31,7 @@ class SavedPage extends Component {
     console.log("deleteBook() for _id: " + toDelete + " called");
     let id = toDelete;
     console.log({id});
-    axios.post("http://localhost:3001/api/books/delete", {id})
+    axios.post("/api/books/delete", {id})
       .then(response => {
         console.log("response.data:");
         console.log(response.data);

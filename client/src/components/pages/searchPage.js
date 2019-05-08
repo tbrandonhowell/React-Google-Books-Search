@@ -65,7 +65,7 @@ class SearchPage extends Component {
     console.log("addBook() for arrayIndex[" + index + "] called");
     let book = this.state.googleResults[index];
     console.log(book);
-    axios.post("http://localhost:3001/api/books", {book})
+    axios.post("/api/books", {book})
       .then(response => {
         console.log("response.data:");
         console.log(response.data);
